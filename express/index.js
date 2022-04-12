@@ -16,6 +16,19 @@ app.get("/productos", (req, res) => {
     });
 });
 
+app.get("/productosrandom", (req, res) => {
+    fs.readFile("productos.json", "utf-8", (error, data) => {
+        if (error) {
+            console.log("Error")
+        } else {
+            let newArray = JSON.parse(data);
+            let random = Math.floor(Math.random() * newArray.length);
+            let result = newArray[random];
+            res.send(result)
+        }
+    })
+})
+
 app.listen(8080, () => {
     console.log("Server run on port 8080")
 })
